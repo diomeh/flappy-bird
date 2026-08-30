@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5l7bh4fn3jc"]
+[gd_scene format=3 uid="uid://b5l7bh4fn3jc"]
 
 [ext_resource type="Script" uid="uid://chknkfnr3swix" path="res://main/main.gd" id="1_53q0u"]
 [ext_resource type="PackedScene" uid="uid://3hbqxg6rvwa6" path="res://player/player.tscn" id="2_pjrb6"]
@@ -9,22 +9,22 @@
 [ext_resource type="PackedScene" uid="uid://7dc8ii4rtq5" path="res://main/boundaries.tscn" id="7_4dugh"]
 [ext_resource type="PackedScene" uid="uid://do0hw77ioyanx" path="res://hud/hud.tscn" id="8_67ri8"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=2100712272]
 script = ExtResource("1_53q0u")
 
-[node name="Background" parent="." instance=ExtResource("2_xwkvk")]
+[node name="Background" parent="." unique_id=1042455501 instance=ExtResource("2_xwkvk")]
 position = Vector2(144, 256)
 
-[node name="Player" parent="." instance=ExtResource("2_pjrb6")]
+[node name="Player" parent="." unique_id=1013458382 instance=ExtResource("2_pjrb6")]
 position = Vector2(144, 256)
 
-[node name="PipePairSpawner" parent="." instance=ExtResource("4_c651c")]
+[node name="PipePairSpawner" parent="." unique_id=1893364699 instance=ExtResource("4_c651c")]
 _pipe_pair_scene = ExtResource("5_3wy1v")
 
-[node name="GameManager" type="Node" parent="."]
+[node name="GameManager" type="Node" parent="." unique_id=1490115450]
 script = ExtResource("6_kfbq2")
 
-[node name="Boundaries" parent="." instance=ExtResource("7_4dugh")]
+[node name="Boundaries" parent="." unique_id=1100773796 instance=ExtResource("7_4dugh")]
 position = Vector2(144, 256)
 
-[node name="HUD" parent="." instance=ExtResource("8_67ri8")]
+[node name="HUD" parent="." unique_id=2110795200 instance=ExtResource("8_67ri8")]
