@@ -100,3 +100,4 @@ autoplay = "blue"
 [node name="Audio" type="AudioStreamPlayer" parent="." unique_id=1264823909]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamPolyphonic_nor3r")
+volume_db = -15.0

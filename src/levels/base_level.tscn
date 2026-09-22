@@ -15,6 +15,7 @@ script = ExtResource("1_glu2l")
 [node name="Background" type="Node2D" parent="." unique_id=1986465352]
 
 [node name="Landscape" type="Parallax2D" parent="Background" unique_id=1693937992]
+unique_name_in_owner = true
 repeat_size = Vector2(288, 0)
 repeat_times = 2
 
@@ -30,6 +31,7 @@ texture = ExtResource("3_rsmv0")
 centered = false
 
 [node name="Ground" type="Parallax2D" parent="Background" unique_id=1436332364]
+unique_name_in_owner = true
 repeat_size = Vector2(288, 0)
 repeat_times = 2
 
@@ -51,6 +53,9 @@ position = Vector2(432, 0)
 [node name="PipeSpawnerBottom" parent="Entities" unique_id=1934297200 instance=ExtResource("5_1ounu")]
 unique_name_in_owner = true
 position = Vector2(432, 512)
+
+[node name="PlayerCamera" type="Camera2D" parent="Entities" unique_id=672294744]
+anchor_mode = 0
 
 [node name="WorldBoundary" type="Area2D" parent="." unique_id=1439214586]
 unique_name_in_owner = true

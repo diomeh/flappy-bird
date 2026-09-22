@@ -3,8 +3,8 @@ class_name BaseLevel
 
 @onready var day: Sprite2D = %Day
 @onready var night: Sprite2D = %Night
-@onready var landscape: Parallax2D = $Background/Landscape
-@onready var ground: Parallax2D = $Background/Ground
+@onready var landscape: Parallax2D = %Landscape
+@onready var ground: Parallax2D = %Ground
 
 # Spawners
 @onready var player_spawner: Spawner = %PlayerSpawner
