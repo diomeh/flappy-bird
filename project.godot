@@ -21,7 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SignalBus="*res://global/signal_bus.gd"
+SignalBus="*uid://cas8jhb2qcmvo"
 
 [debug]
 
