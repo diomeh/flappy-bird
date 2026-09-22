@@ -6,12 +6,11 @@ class_name BaseLevel
 @onready var landscape: Parallax2D = %Landscape
 @onready var ground: Parallax2D = %Ground
 
-# Spawners
 @onready var player_spawner: Spawner = %PlayerSpawner
-@onready var pipe_spawner_top: Spawner = %PipeSpawnerTop
-@onready var pipe_spawner_bottom: Spawner = %PipeSpawnerBottom
+@onready var pipe_spawner: Spawner = %PipeSpawner
 
-@onready var world_boundary: Area2D = %WorldBoundary
+@onready var world_boundary_top: Area2D = %WorldBoundaryTop
+@onready var world_boundary_bottom: Area2D = %WorldBoundaryBottom
 
 @export var level_type = LevelType.DAY
 @export var bg_speed = 20.0
@@ -24,32 +23,30 @@ enum LevelType {
 
 
 func _ready() -> void:
-	world_boundary.body_exited.connect(_on_world_boundary_exit)
-	
+	world_boundary_top.body_entered.connect(_on_world_boundary_enter)
+	world_boundary_bottom.body_entered.connect(_on_world_boundary_enter)
+
 	if level_type == LevelType.DAY:
 		day.visible = true
 		night.visible = false
 	else:
 		day.visible = false
 		night.visible = true
-	
+
 	landscape.autoscroll.x = bg_speed * -1
 	ground.autoscroll.x = fg_speed * -1
 
 
-func _on_world_boundary_exit(body: Node2D) -> void:
+func _on_world_boundary_enter(body: Node2D) -> void:
 	if not body is Player:
 		return
 
-	SignalBus.player_hit.emit() 
+	SignalBus.player_hit.emit()
 
 
 func get_player_spawn() -> Vector2:
 	return player_spawner.global_position
 
 
-func get_pipes_spawns() -> Array[Vector2]:
-	return [
-		pipe_spawner_top.global_position,
-		pipe_spawner_bottom.global_position,
-	]
+func get_pipes_spawn() -> Vector2:
+	return pipe_spawner.global_position

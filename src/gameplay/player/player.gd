@@ -4,7 +4,7 @@ class_name Player
 @onready var _visuals: AnimatedSprite2D = %Visuals
 @onready var _audio: AudioStreamPlayer = %Audio
 
-@export var bird_sprite = BirdSprite.BLUE
+@export var bird_sprite = BirdSprite.YELLOW
 @export var sfx_streams: Dictionary[SFX, AudioStream]
 
 const SPEED = 300.0
@@ -36,7 +36,7 @@ var _action = Action.GLIDE
 
 func _ready() -> void:
 	SignalBus.player_hit.connect(_on_player_hit)
-	
+
 	# Init animation
 	var sprite_name: String = BirdSprite.keys()[bird_sprite]
 	_visuals.animation = sprite_name.to_lower()
@@ -44,13 +44,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# We always add gravity.
-	velocity += get_gravity() * delta
-	
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
 	# Handle jump
 	if Input.is_action_just_pressed("ok") and _action != Action.JUMP:
 		_do_action(Action.JUMP)
-	
+
 	# For rotation of sprite calculation will be done based on velocity.y
 	# constrained to +-90deg (180deg total). For this we'll use JUMP_VELOCITY as
 	# our max velicty.y, as we need it to map linear velocity into rotation
@@ -59,8 +59,8 @@ func _physics_process(delta: float) -> void:
 	var normalized_vy = minf(maxf(velocity.y / JUMP_VELOCITY, -1), 1)
 	var targetRotation = normalized_vy * (PI / 2) * -1
 	rotation = lerp_angle(
-		currentRotation, 
-		targetRotation, 
+		currentRotation,
+		targetRotation,
 		ROTATION_SPEED * delta
 	)
 
@@ -75,7 +75,7 @@ func _do_action(action: Action) -> void:
 			_jump()
 		Action.DIE:
 			_die()
-			
+
 
 func _jump() -> void:
 	velocity.y = JUMP_VELOCITY
@@ -92,10 +92,10 @@ func _play_sfx(sfx: SFX) -> void:
 	if not stream:
 		printerr("Failed to obtain stream ", sfx)
 		return
-		
+
 	if not _audio.has_stream_playback():
 		_audio.play()
-		
+
 	var playback = _audio.get_stream_playback() as AudioStreamPlaybackPolyphonic
 	if not playback:
 		printerr("Failed to obtain stream playback")

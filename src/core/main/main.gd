@@ -2,7 +2,7 @@ extends Node
 
 const PLAYER_SCENE	 = preload("res://src/gameplay/player/player.tscn")
 const LEVEL_SCENE	 = preload("res://src/levels/base_level.tscn")
-const PIPE_SCENE	 = preload("res://src/gameplay/pipe/pipe.tscn")
+const PIPE_SCENE	 = preload("res://src/gameplay/pipe/pipe_column.tscn")
 
 const PLAYER_SCENE_PATH	 = "res://src/gameplay/player/player.tscn"
 const LEVEL_SCENE_PATH	 = "res://src/levels/base_level.tscn"
@@ -18,7 +18,7 @@ var _current_level: BaseLevel
 func _ready() -> void:
 	_init_player()
 	load_level(LEVEL_SCENE_PATH)
-	
+
 
 func _input(event: InputEvent) -> void:
 	if not OS.is_debug_build():
@@ -40,7 +40,7 @@ func _init_player() -> void:
 	if player_scene == null:
 		push_error("Could not load player scene: " + PLAYER_SCENE_PATH)
 		return
-	
+
 	var player_instance : Node = PLAYER_SCENE.instantiate()
 	if not player_instance:
 		push_error("Could not instantiate player scene " + PLAYER_SCENE_PATH)

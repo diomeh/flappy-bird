@@ -7,7 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://uw3rrsfgoqy4" path="res://src/levels/level_objects/markers/spawner.tscn" id="5_1ounu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-size = Vector2(288, 512)
+size = Vector2(288, 112.8125)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g4v7s"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yf5fn"]
+normal = Vector2(0, 1)
 
 [node name="BaseLevel" type="Node2D" unique_id=212553200]
 script = ExtResource("1_glu2l")
@@ -46,21 +51,39 @@ offset = Vector2(-24, 400)
 unique_name_in_owner = true
 position = Vector2(144, 256)
 
-[node name="PipeSpawnerTop" parent="Entities" unique_id=1559303248 instance=ExtResource("5_1ounu")]
+[node name="PipeSpawner" parent="Entities" unique_id=1559303248 instance=ExtResource("5_1ounu")]
 unique_name_in_owner = true
 position = Vector2(432, 0)
-
-[node name="PipeSpawnerBottom" parent="Entities" unique_id=1934297200 instance=ExtResource("5_1ounu")]
-unique_name_in_owner = true
-position = Vector2(432, 512)
 
 [node name="PlayerCamera" type="Camera2D" parent="Entities" unique_id=672294744]
 anchor_mode = 0
 
-[node name="WorldBoundary" type="Area2D" parent="." unique_id=1439214586]
+[node name="WorldBoundary" type="Node2D" parent="." unique_id=1444380412]
+
+[node name="WorldBoundaryTop" type="Area2D" parent="WorldBoundary" unique_id=1567304914]
 unique_name_in_owner = true
 collision_layer = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary" unique_id=1138923413]
-position = Vector2(144, 256)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/WorldBoundaryTop" unique_id=1389317800]
+position = Vector2(144, -54.1875)
 shape = SubResource("RectangleShape2D_yf5fn")
+
+[node name="WorldBoundaryBottom" type="Area2D" parent="WorldBoundary" unique_id=1439214586]
+unique_name_in_owner = true
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/WorldBoundaryBottom" unique_id=1138923413]
+position = Vector2(144, 458.40625)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[node name="Floor" type="StaticBody2D" parent="WorldBoundary" unique_id=209205301]
+position = Vector2(0, 404)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/Floor" unique_id=107227989]
+shape = SubResource("WorldBoundaryShape2D_g4v7s")
+
+[node name="Ceiling" type="StaticBody2D" parent="WorldBoundary" unique_id=542093090]
+position = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/Ceiling" unique_id=1795864453]
+shape = SubResource("WorldBoundaryShape2D_yf5fn")

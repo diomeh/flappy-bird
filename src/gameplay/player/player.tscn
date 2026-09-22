@@ -77,7 +77,6 @@ animations = [{
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_nor3r"]
 
 [node name="Player" type="CharacterBody2D" unique_id=795824647]
-collision_mask = 0
 script = ExtResource("1_xdbtd")
 sfx_streams = Dictionary[int, AudioStream]({
 0: ExtResource("2_nor3r"),
