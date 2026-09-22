@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var _visuals: AnimatedSprite2D = %Visuals
 @onready var _audio: AudioStreamPlayer = %Audio
@@ -8,13 +9,13 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const ROTATION_SPEED = 1
+const ROTATION_SPEED = 10
 
 enum SFX {
 	DIE,
 	HIT,
 	POINT,
-	SWOOSH,
+	SWOOSH, # FIXME: Not sure where to use this one
 	WING
 }
 
@@ -33,10 +34,12 @@ enum Action {
 var _action = Action.GLIDE
 
 
-
 func _ready() -> void:
+	SignalBus.player_hit.connect(_on_player_hit)
+	
 	# Init animation
-	_visuals.animation = BirdSprite.keys()[bird_sprite]
+	var sprite_name: String = BirdSprite.keys()[bird_sprite]
+	_visuals.animation = sprite_name.to_lower()
 	_visuals.pause()
 
 
@@ -44,13 +47,17 @@ func _physics_process(delta: float) -> void:
 	# We always add gravity.
 	velocity += get_gravity() * delta
 	
+	# Handle jump
+	if Input.is_action_just_pressed("ok") and _action != Action.JUMP:
+		_do_action(Action.JUMP)
+	
 	# For rotation of sprite calculation will be done based on velocity.y
 	# constrained to +-90deg (180deg total). For this we'll use JUMP_VELOCITY as
 	# our max velicty.y, as we need it to map linear velocity into rotation
 
 	var currentRotation = rotation
 	var normalized_vy = minf(maxf(velocity.y / JUMP_VELOCITY, -1), 1)
-	var targetRotation = normalized_vy * (PI / 2)
+	var targetRotation = normalized_vy * (PI / 2) * -1
 	rotation = lerp_angle(
 		currentRotation, 
 		targetRotation, 
@@ -58,11 +65,6 @@ func _physics_process(delta: float) -> void:
 	)
 
 	move_and_slide()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_just_pressed("ok") and _action != Action.JUMP:
-		_do_action(Action.JUMP)
 
 
 func _do_action(action: Action) -> void:
@@ -78,22 +80,29 @@ func _do_action(action: Action) -> void:
 func _jump() -> void:
 	velocity.y = JUMP_VELOCITY
 	_play_sfx(SFX.WING)
-	_play_sfx(SFX.SWOOSH)
-	
+
 
 func _die() -> void:
 	_play_sfx(SFX.HIT)
 	_play_sfx(SFX.DIE)
-	SignalBus.player_hit.emit()
 
 
 func _play_sfx(sfx: SFX) -> void:
 	var stream = sfx_streams.get(sfx) as AudioStream
-	if not sfx:
+	if not stream:
+		printerr("Failed to obtain stream ", sfx)
 		return
+		
+	if not _audio.has_stream_playback():
+		_audio.play()
 		
 	var playback = _audio.get_stream_playback() as AudioStreamPlaybackPolyphonic
 	if not playback:
+		printerr("Failed to obtain stream playback")
 		return
 
 	playback.play_stream(stream)
+
+
+func _on_player_hit() -> void:
+	_do_action(Action.DIE)

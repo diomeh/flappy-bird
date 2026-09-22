@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c2faa4r3jmls2"]
+
+[ext_resource type="Script" uid="uid://ch4v4fvkoudxw" path="res://src/levels/base_level.gd" id="1_glu2l"]
+[ext_resource type="Texture2D" uid="uid://dn1mjiqxxa2ta" path="res://assets/art/world/background/day.png" id="2_y0vfd"]
+[ext_resource type="Texture2D" uid="uid://ddsieqq7x86q6" path="res://assets/art/world/background/night.png" id="3_rsmv0"]
+[ext_resource type="Texture2D" uid="uid://bq26j33yl5ou4" path="res://assets/art/world/background/base.png" id="4_x4dei"]
+[ext_resource type="PackedScene" uid="uid://uw3rrsfgoqy4" path="res://src/levels/level_objects/markers/spawner.tscn" id="5_1ounu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(288, 512)
+
+[node name="BaseLevel" type="Node2D" unique_id=212553200]
+script = ExtResource("1_glu2l")
+
+[node name="Background" type="Node2D" parent="." unique_id=1986465352]
+
+[node name="Landscape" type="Parallax2D" parent="Background" unique_id=1693937992]
+repeat_size = Vector2(288, 0)
+repeat_times = 2
+
+[node name="Day" type="Sprite2D" parent="Background/Landscape" unique_id=1844284139]
+unique_name_in_owner = true
+texture = ExtResource("2_y0vfd")
+centered = false
+
+[node name="Night" type="Sprite2D" parent="Background/Landscape" unique_id=403488915]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("3_rsmv0")
+centered = false
+
+[node name="Ground" type="Parallax2D" parent="Background" unique_id=1436332364]
+repeat_size = Vector2(288, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Ground" unique_id=254665804]
+texture = ExtResource("4_x4dei")
+centered = false
+offset = Vector2(-24, 400)
+
+[node name="Entities" type="Node2D" parent="." unique_id=1879625620]
+
+[node name="PlayerSpawner" parent="Entities" unique_id=1768425400 instance=ExtResource("5_1ounu")]
+unique_name_in_owner = true
+position = Vector2(144, 256)
+
+[node name="PipeSpawnerTop" parent="Entities" unique_id=1559303248 instance=ExtResource("5_1ounu")]
+unique_name_in_owner = true
+position = Vector2(432, 0)
+
+[node name="PipeSpawnerBottom" parent="Entities" unique_id=1934297200 instance=ExtResource("5_1ounu")]
+unique_name_in_owner = true
+position = Vector2(432, 512)
+
+[node name="WorldBoundary" type="Area2D" parent="." unique_id=1439214586]
+unique_name_in_owner = true
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary" unique_id=1138923413]
+position = Vector2(144, 256)
+shape = SubResource("RectangleShape2D_yf5fn")

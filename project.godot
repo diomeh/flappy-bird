@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="flappy-bird"
-run/main_scene="uid://b5l7bh4fn3jc"
+run/main_scene="uid://ptq34pf6ffm"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -66,4 +66,4 @@ cancel={
 [layer_names]
 
 2d_physics/layer_1="player"
-2d_physics/layer_2="pipe"
+2d_physics/layer_2="hurt"

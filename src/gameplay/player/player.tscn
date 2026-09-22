@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dev1iqb23lv73" path="res://assets/art/birds/red/downflap.png" id="5_nor3r"]
 [ext_resource type="AudioStream" uid="uid://c5kejaurv5jx" path="res://assets/audio/sfx/swoosh.wav" id="5_wdigr"]
 [ext_resource type="Texture2D" uid="uid://cu3wap7glpnx2" path="res://assets/art/birds/red/midflap.png" id="6_6eivh"]
+[ext_resource type="AudioStream" uid="uid://cniruabbbh8qy" path="res://assets/audio/sfx/wing.wav" id="6_xptrr"]
 [ext_resource type="Texture2D" uid="uid://bg5pvy3mctt1h" path="res://assets/art/birds/red/upflap.png" id="7_xptrr"]
 [ext_resource type="Texture2D" uid="uid://djn7wf1lj7bh8" path="res://assets/art/birds/yellow/downflap.png" id="8_wdigr"]
 [ext_resource type="Texture2D" uid="uid://buojcyvt1gowf" path="res://assets/art/birds/yellow/midflap.png" id="9_ymqj1"]
@@ -76,12 +77,14 @@ animations = [{
 [sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_nor3r"]
 
 [node name="Player" type="CharacterBody2D" unique_id=795824647]
+collision_mask = 0
 script = ExtResource("1_xdbtd")
 sfx_streams = Dictionary[int, AudioStream]({
 0: ExtResource("2_nor3r"),
 1: ExtResource("3_6eivh"),
 2: ExtResource("4_xptrr"),
-3: ExtResource("5_wdigr")
+3: ExtResource("5_wdigr"),
+4: ExtResource("6_xptrr")
 })
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1335214395]
