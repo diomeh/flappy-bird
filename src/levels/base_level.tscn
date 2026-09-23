@@ -49,7 +49,7 @@ offset = Vector2(-24, 400)
 
 [node name="PlayerSpawnPoint" parent="Entities" unique_id=1768425400 instance=ExtResource("5_1ounu")]
 unique_name_in_owner = true
-position = Vector2(144, 256)
+position = Vector2(72, 256)
 
 [node name="PipeSpawnPoint" parent="Entities" unique_id=1559303248 instance=ExtResource("5_1ounu")]
 unique_name_in_owner = true

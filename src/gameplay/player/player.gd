@@ -36,6 +36,7 @@ var _action = Action.GLIDE
 
 func _ready() -> void:
 	SignalBus.player_hit.connect(_on_player_hit)
+	SignalBus.player_scored.connect(_on_player_scored)
 
 	# Init animation
 	var sprite_name: String = BirdSprite.keys()[bird_sprite]
@@ -106,3 +107,7 @@ func _play_sfx(sfx: SFX) -> void:
 
 func _on_player_hit() -> void:
 	_do_action(Action.DIE)
+
+
+func _on_player_scored() -> void:
+	_play_sfx(SFX.POINT)

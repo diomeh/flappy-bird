@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bud3jdxxu77s5" path="res://src/core/main/main.gd" id="1_6t2ow"]
 [ext_resource type="PackedScene" uid="uid://cj7p6edgsrk3t" path="res://src/gameplay/pipe/pipe_spawner.tscn" id="2_eijcj"]
+[ext_resource type="PackedScene" uid="uid://b8owmuy0ie1rg" path="res://src/ui/score_ui.tscn" id="4_5fl30"]
 
 [node name="Main" type="Node" unique_id=1506788467]
 process_mode = 3
@@ -22,15 +23,20 @@ unique_name_in_owner = true
 [node name="EntityRoot" type="Node2D" parent="World" unique_id=1986936141]
 unique_name_in_owner = true
 
-[node name="HudLayer" type="CanvasLayer" parent="." unique_id=653807754]
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=653807754]
 process_mode = 1
 
-[node name="HudRoot" type="Control" parent="HudLayer" unique_id=938967482]
+[node name="UIRoot" type="Control" parent="UILayer" unique_id=938967482]
 unique_name_in_owner = true
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreUi" parent="UILayer/UIRoot" unique_id=8018129 instance=ExtResource("4_5fl30")]
+layout_mode = 1
 
 [node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1435006408]
 process_mode = 2
