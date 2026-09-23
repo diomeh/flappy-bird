@@ -2,13 +2,13 @@ extends Node
 
 const PLAYER_SCENE	 = preload("res://src/gameplay/player/player.tscn")
 const LEVEL_SCENE	 = preload("res://src/levels/base_level.tscn")
-const PIPE_SCENE	 = preload("res://src/gameplay/pipe/pipe_column.tscn")
 
 const PLAYER_SCENE_PATH	 = "res://src/gameplay/player/player.tscn"
 const LEVEL_SCENE_PATH	 = "res://src/levels/base_level.tscn"
 
 @onready var level_root: Node2D = %LevelRoot
 @onready var entity_root: Node2D = %EntityRoot
+@onready var pipe_spawner: PipeSpawner = %PipeSpawner
 
 var player: Player
 
@@ -18,6 +18,8 @@ var _current_level: BaseLevel
 func _ready() -> void:
 	_init_player()
 	load_level(LEVEL_SCENE_PATH)
+	# We need to wait for level to be ready before spawning pipes
+	_init_systems.call_deferred()
 
 
 func _input(event: InputEvent) -> void:
@@ -103,4 +105,12 @@ func _place_player_at_level_spawn() -> void:
 		push_error("Cannot place player into level because level is null")
 		return
 
-	player.global_position = _current_level.get_player_spawn()
+	player.global_position = _current_level.get_player_spawn_point()
+
+
+func _init_systems() -> void:
+	pipe_spawner.configure(
+		_current_level.get_pipe_spawn_point(),
+		entity_root
+	)
+	pipe_spawner.schedule_spawn()

@@ -1,18 +1,11 @@
 extends Node2D
+class_name PipeColumn
 
 const SPEED = 100
 
 const BIRD_SIZE = 24.0 # Taken from bird sprite
-const GAP_MIN = BIRD_SIZE * 3
-const GAP_MAX = BIRD_SIZE * 4
-
-#region unused
-const FLOOR_HEIGHT = 112.0 # Taken from floor sprite
-const PIPE_MIN_PADDING = 24.0
-const PIPE_PADDING_TOP = PIPE_MIN_PADDING
-const PIPE_PADDING_BOTTOM = PIPE_MIN_PADDING + FLOOR_HEIGHT
-const MAX_HEIGHT = 512.0
-#endregion
+const GAP_MIN = BIRD_SIZE * 5
+const GAP_MAX = BIRD_SIZE * 6
 
 const PIPE_HALF_HEIGHT = 160.0
 
@@ -48,6 +41,7 @@ enum PipeColor {
 # 5. Vertical position is random
 # 5.1 Position will always be capped within treshold of previous to prevent impossible to cross gaps
 
+var gap_size = 32.0
 
 func _ready() -> void:
 	_init_signals()
@@ -84,7 +78,7 @@ func _init_pipe_textures() -> void:
 
 
 func _init_pipe_positions() -> void:
-	var gap_size = randf_range(GAP_MIN, GAP_MAX)
+	gap_size = randf_range(GAP_MIN, GAP_MAX)
 	gap_collision.shape.size.y = gap_size
 
 	var y_offset = PIPE_HALF_HEIGHT + (gap_size / 2)
@@ -92,11 +86,17 @@ func _init_pipe_positions() -> void:
 	bottom.position.y = y_offset
 
 
-func _on_player_scored() -> void:
+func _on_player_scored(body: Node2D) -> void:
+	if not body is Player:
+		return
+
 	SignalBus.player_scored.emit()
 
 
-func _on_player_hit() -> void:
+func _on_player_hit(body: Node2D) -> void:
+	if not body is Player:
+		return
+
 	SignalBus.player_hit.emit()
 
 

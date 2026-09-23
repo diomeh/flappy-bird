@@ -6,8 +6,8 @@ class_name BaseLevel
 @onready var landscape: Parallax2D = %Landscape
 @onready var ground: Parallax2D = %Ground
 
-@onready var player_spawner: Spawner = %PlayerSpawner
-@onready var pipe_spawner: Spawner = %PipeSpawner
+@onready var player_spawn_point: SpawnPoint = %PlayerSpawnPoint
+@onready var pipe_spawn_point: SpawnPoint = %PipeSpawnPoint
 
 @onready var world_boundary_top: Area2D = %WorldBoundaryTop
 @onready var world_boundary_bottom: Area2D = %WorldBoundaryBottom
@@ -44,9 +44,9 @@ func _on_world_boundary_enter(body: Node2D) -> void:
 	SignalBus.player_hit.emit()
 
 
-func get_player_spawn() -> Vector2:
-	return player_spawner.global_position
+func get_player_spawn_point() -> Vector2:
+	return player_spawn_point.global_position
 
 
-func get_pipes_spawn() -> Vector2:
-	return pipe_spawner.global_position
+func get_pipe_spawn_point() -> Vector2:
+	return pipe_spawn_point.global_position

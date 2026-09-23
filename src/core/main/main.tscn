@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ptq34pf6ffm"]
 
 [ext_resource type="Script" uid="uid://bud3jdxxu77s5" path="res://src/core/main/main.gd" id="1_6t2ow"]
+[ext_resource type="PackedScene" uid="uid://cj7p6edgsrk3t" path="res://src/gameplay/pipe/pipe_spawner.tscn" id="2_eijcj"]
 
 [node name="Main" type="Node" unique_id=1506788467]
 process_mode = 3
@@ -8,6 +9,9 @@ script = ExtResource("1_6t2ow")
 
 [node name="Systems" type="Node" parent="." unique_id=282145600]
 process_mode = 3
+
+[node name="PipeSpawner" parent="Systems" unique_id=1807292935 instance=ExtResource("2_eijcj")]
+unique_name_in_owner = true
 
 [node name="World" type="Node2D" parent="." unique_id=1526905641]
 process_mode = 1

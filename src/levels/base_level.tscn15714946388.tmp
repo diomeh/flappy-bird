@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dn1mjiqxxa2ta" path="res://assets/art/world/background/day.png" id="2_y0vfd"]
 [ext_resource type="Texture2D" uid="uid://ddsieqq7x86q6" path="res://assets/art/world/background/night.png" id="3_rsmv0"]
 [ext_resource type="Texture2D" uid="uid://bq26j33yl5ou4" path="res://assets/art/world/background/base.png" id="4_x4dei"]
-[ext_resource type="PackedScene" uid="uid://uw3rrsfgoqy4" path="res://src/levels/level_objects/markers/spawn_point.tscn" id="5_1ounu"]
+[ext_resource type="PackedScene" uid="uid://uw3rrsfgoqy4" path="res://src/levels/level_objects/markers/spawner.tscn" id="5_1ounu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
 size = Vector2(288, 112.8125)
