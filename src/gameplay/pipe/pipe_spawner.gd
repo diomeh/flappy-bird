@@ -4,7 +4,7 @@ class_name PipeSpawner
 const MAX_HEIGHT = 512.0
 const FLOOR_HEIGHT = 112.0 # Taken from floor sprite
 
-const PIPE_MIN_PADDING = 24.0 + 31.0
+const PIPE_MIN_PADDING = 24.0 + 60.0
 const PIPE_PADDING_TOP = PIPE_MIN_PADDING
 const PIPE_PADDING_BOTTOM = MAX_HEIGHT - PIPE_MIN_PADDING - FLOOR_HEIGHT
 
