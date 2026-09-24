@@ -8,7 +8,7 @@ const PIPE_MIN_PADDING = 24.0 + 60.0
 const PIPE_PADDING_TOP = PIPE_MIN_PADDING
 const PIPE_PADDING_BOTTOM = MAX_HEIGHT - PIPE_MIN_PADDING - FLOOR_HEIGHT
 
-const PIPE_SCENE	 = preload("res://src/gameplay/pipe/pipe_column.tscn")
+const PIPE_SCENE = preload("res://src/gameplay/pipe/pipe_column.tscn")
 
 @onready var timer: Timer = %Timer
 
@@ -16,7 +16,6 @@ const PIPE_SCENE	 = preload("res://src/gameplay/pipe/pipe_column.tscn")
 
 var _spawn_point: Vector2
 var _target_node: Node2D
-var _recurrent = true
 
 
 func _ready() -> void:
@@ -29,16 +28,9 @@ func _ready() -> void:
 func configure(
 	spawn_point: Vector2,
 	target_node: Node2D,
-	is_recurrent: bool = true
 ) -> void:
 	_spawn_point = spawn_point
 	_target_node = target_node
-	_recurrent = is_recurrent
-
-
-func schedule_spawn() -> void:
-	spawn()
-	timer.start()
 
 
 func spawn() -> void:
@@ -52,3 +44,12 @@ func spawn() -> void:
 
 	pipe.global_position = spawn_point
 	_target_node.add_child(pipe)
+
+
+func schedule_spawn() -> void:
+	spawn()
+	timer.start()
+
+
+func stop() -> void:
+	timer.stop()

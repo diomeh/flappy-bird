@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bud3jdxxu77s5" path="res://src/core/main/main.gd" id="1_6t2ow"]
 [ext_resource type="PackedScene" uid="uid://cj7p6edgsrk3t" path="res://src/gameplay/pipe/pipe_spawner.tscn" id="2_eijcj"]
 [ext_resource type="PackedScene" uid="uid://b8owmuy0ie1rg" path="res://src/ui/score_ui.tscn" id="4_5fl30"]
+[ext_resource type="PackedScene" uid="uid://2r1wjbl66skp" path="res://src/ui/start_screen.tscn" id="4_yfg2f"]
+[ext_resource type="PackedScene" uid="uid://d3j0eplao3ocm" path="res://src/ui/game_over_screen.tscn" id="5_yfg2f"]
 
 [node name="Main" type="Node" unique_id=1506788467]
 process_mode = 3
@@ -36,6 +38,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScoreUi" parent="UILayer/UIRoot" unique_id=8018129 instance=ExtResource("4_5fl30")]
+visible = false
+layout_mode = 1
+
+[node name="StartScreen" parent="UILayer/UIRoot" unique_id=383841172 instance=ExtResource("4_yfg2f")]
+layout_mode = 1
+
+[node name="GameOverScreen" parent="UILayer/UIRoot" unique_id=905488359 instance=ExtResource("5_yfg2f")]
+visible = false
 layout_mode = 1
 
 [node name="PauseLayer" type="CanvasLayer" parent="." unique_id=1435006408]

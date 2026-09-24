@@ -20,7 +20,12 @@ var _score = -1
 
 func _ready() -> void:
 	SignalBus.player_scored.connect(_on_player_scored)
+	SignalBus.game_start.connect(_on_game_start)
 	_bump_score()
+
+
+func _on_game_start() -> void:
+	visible = true
 
 
 func _on_player_scored() -> void:

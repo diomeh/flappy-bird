@@ -43,6 +43,8 @@ enum PipeColor {
 
 var gap_size = 32.0
 
+var enable_move = true
+
 func _ready() -> void:
 	_init_signals()
 	_init_pipe_textures()
@@ -50,7 +52,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-		position.x -= SPEED * delta
+		if enable_move:
+			position.x -= SPEED * delta
 
 
 func _init_signals() -> void:
@@ -97,6 +100,7 @@ func _on_player_hit(body: Node2D) -> void:
 	if not body is Player:
 		return
 
+	enable_move = false
 	SignalBus.player_hit.emit()
 
 

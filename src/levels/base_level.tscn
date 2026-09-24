@@ -65,6 +65,7 @@ anchor_mode = 0
 [node name="WorldBoundaryTop" type="Area2D" parent="WorldBoundary" unique_id=1567304914]
 unique_name_in_owner = true
 collision_layer = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/WorldBoundaryTop" unique_id=1389317800]
 position = Vector2(144, -54.1875)
@@ -73,6 +74,7 @@ shape = SubResource("RectangleShape2D_yf5fn")
 [node name="WorldBoundaryBottom" type="Area2D" parent="WorldBoundary" unique_id=1439214586]
 unique_name_in_owner = true
 collision_layer = 2
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBoundary/WorldBoundaryBottom" unique_id=1138923413]
 position = Vector2(144, 458.40625)

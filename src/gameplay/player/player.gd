@@ -32,11 +32,18 @@ enum Action {
 }
 
 var _action = Action.GLIDE
+var _enable_move = false
+var _dying = false
+var _collision_layer: int
 
 
 func _ready() -> void:
+	SignalBus.game_start.connect(_on_game_start)
 	SignalBus.player_hit.connect(_on_player_hit)
 	SignalBus.player_scored.connect(_on_player_scored)
+
+	_collision_layer = collision_layer
+	collision_layer = 0
 
 	# Init animation
 	var sprite_name: String = BirdSprite.keys()[bird_sprite]
@@ -45,17 +52,34 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if _dying:
+		_apply_gravity(delta)
+		_rotate_and_move(delta)
+		if position.y > 520 + 30:
+			_dying = false
+		return
+
+	if not _enable_move:
+		return
+
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		_apply_gravity(delta)
 
 	# Handle jump
 	if Input.is_action_just_pressed("ok") and _action != Action.JUMP:
 		_do_action(Action.JUMP)
 
+	_rotate_and_move(delta)
+
+
+func _apply_gravity(delta: float) -> void:
+		velocity += get_gravity() * delta
+
+
+func _rotate_and_move(delta: float) -> void:
 	# For rotation of sprite calculation will be done based on velocity.y
 	# constrained to +-90deg (180deg total). For this we'll use JUMP_VELOCITY as
 	# our max velicty.y, as we need it to map linear velocity into rotation
-
 	var currentRotation = rotation
 	var normalized_vy = minf(maxf(velocity.y / JUMP_VELOCITY, -1), 1)
 	var targetRotation = normalized_vy * (PI / 2) * -1
@@ -84,6 +108,12 @@ func _jump() -> void:
 
 
 func _die() -> void:
+	_enable_move = false
+	_dying = true
+
+	_collision_layer = collision_layer
+	collision_layer = 0
+
 	_play_sfx(SFX.HIT)
 	_play_sfx(SFX.DIE)
 
@@ -103,6 +133,11 @@ func _play_sfx(sfx: SFX) -> void:
 		return
 
 	playback.play_stream(stream)
+
+
+func _on_game_start() -> void:
+	_enable_move = true
+	collision_layer = _collision_layer
 
 
 func _on_player_hit() -> void:

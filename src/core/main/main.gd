@@ -1,25 +1,51 @@
 extends Node
 
-const PLAYER_SCENE	 = preload("res://src/gameplay/player/player.tscn")
-const LEVEL_SCENE	 = preload("res://src/levels/base_level.tscn")
+const PLAYER_SCENE = preload("res://src/gameplay/player/player.tscn")
+const LEVEL_SCENE = preload("res://src/levels/base_level.tscn")
 
-const PLAYER_SCENE_PATH	 = "res://src/gameplay/player/player.tscn"
-const LEVEL_SCENE_PATH	 = "res://src/levels/base_level.tscn"
+const PLAYER_SCENE_PATH = "res://src/gameplay/player/player.tscn"
+const LEVEL_SCENE_PATH = "res://src/levels/base_level.tscn"
+
+enum GameState {
+	START,
+	PLAYING,
+	PAUSED,
+	END,
+}
 
 @onready var level_root: Node2D = %LevelRoot
 @onready var entity_root: Node2D = %EntityRoot
 @onready var pipe_spawner: PipeSpawner = %PipeSpawner
 
 var player: Player
+var game_state := GameState.START
 
 var _current_level: BaseLevel
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	_init_signals()
 	_init_player()
 	load_level(LEVEL_SCENE_PATH)
 	# We need to wait for level to be ready before spawning pipes
 	_init_systems.call_deferred()
+
+
+func _init_signals() -> void:
+	SignalBus.game_start.connect(_on_game_start)
+	SignalBus.player_hit.connect(_on_player_hit)
+
+
+func _on_game_start() -> void:
+	pipe_spawner.schedule_spawn()
+
+
+func _on_player_hit() -> void:
+	pipe_spawner.stop()
+	for p in get_tree().get_nodes_in_group('pipes'):
+		if p is PipeColumn:
+			(p as PipeColumn).enable_move = false
 
 
 func _input(event: InputEvent) -> void:
@@ -113,4 +139,3 @@ func _init_systems() -> void:
 		_current_level.get_pipe_spawn_point(),
 		entity_root
 	)
-	pipe_spawner.schedule_spawn()

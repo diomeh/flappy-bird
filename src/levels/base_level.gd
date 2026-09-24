@@ -23,8 +23,14 @@ enum LevelType {
 
 
 func _ready() -> void:
+	SignalBus.game_start.connect(_on_game_start)
+	SignalBus.player_hit.connect(_on_player_hit)
+
 	world_boundary_top.body_entered.connect(_on_world_boundary_enter)
 	world_boundary_bottom.body_entered.connect(_on_world_boundary_enter)
+
+	world_boundary_top.monitoring = false
+	world_boundary_bottom.monitoring = false
 
 	if level_type == LevelType.DAY:
 		day.visible = true
@@ -50,3 +56,13 @@ func get_player_spawn_point() -> Vector2:
 
 func get_pipe_spawn_point() -> Vector2:
 	return pipe_spawn_point.global_position
+
+
+func _on_game_start() -> void:
+	world_boundary_top.monitoring = true
+	world_boundary_bottom.monitoring = true
+
+
+func _on_player_hit() -> void:
+	landscape.autoscroll.x = 0
+	ground.autoscroll.x = 0
