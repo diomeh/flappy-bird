@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://c8rrc5todjild"]
+
+[ext_resource type="Script" uid="uid://joyo2juhtah7" path="res://src/gameplay/pipe/pipe_column.gd" id="1_7sieu"]
+[ext_resource type="Texture2D" uid="uid://cn13pjw5y37vi" path="res://assets/art/world/pipe/green.png" id="2_d76k1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(48, 316)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d76k1"]
+size = Vector2(2, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dn4h5"]
+size = Vector2(48, 316)
+
+[node name="PipeColumn" type="Node2D" unique_id=329947842 groups=["pipes"]]
+script = ExtResource("1_7sieu")
+
+[node name="Top" type="Node2D" parent="." unique_id=1450552835]
+unique_name_in_owner = true
+position = Vector2(0, -191)
+
+[node name="TopPipe" type="Sprite2D" parent="Top" unique_id=1743293180]
+unique_name_in_owner = true
+texture = ExtResource("2_d76k1")
+flip_v = true
+
+[node name="TopArea" type="Area2D" parent="Top" unique_id=648828130]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top/TopArea" unique_id=1008588314]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="GapArea" type="Area2D" parent="." unique_id=187828939]
+unique_name_in_owner = true
+
+[node name="GapCollision" type="CollisionShape2D" parent="GapArea" unique_id=54527498]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_d76k1")
+
+[node name="Bottom" type="Node2D" parent="." unique_id=852463645]
+unique_name_in_owner = true
+position = Vector2(0, 191)
+
+[node name="BottomPipe" type="Sprite2D" parent="Bottom" unique_id=293484341]
+unique_name_in_owner = true
+texture = ExtResource("2_d76k1")
+
+[node name="BottomArea" type="Area2D" parent="Bottom" unique_id=460136512]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom/BottomArea" unique_id=1097086114]
+shape = SubResource("RectangleShape2D_dn4h5")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=616224301]
+position = Vector2(-16, 0)
+rect = Rect2(-10, -368, 52, 736)

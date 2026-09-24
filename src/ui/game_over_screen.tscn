@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d3j0eplao3ocm"]
+
+[ext_resource type="Script" uid="uid://b1vpn2exloj2s" path="res://src/ui/game_over_screen.gd" id="1_yfkuc"]
+[ext_resource type="Texture2D" uid="uid://ba8lmvph36xuc" path="res://assets/art/ui/gameover.png" id="2_40a5h"]
+
+[node name="GameOverScreen" type="Control" unique_id=905488359]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yfkuc")
+
+[node name="MarginContainer" type="CenterContainer" parent="." unique_id=2026766984]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1850166996]
+layout_mode = 2
+texture = ExtResource("2_40a5h")
+stretch_mode = 2

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://uw3rrsfgoqy4"]
+
+[ext_resource type="Script" uid="uid://cmf7bjmrcgy0j" path="res://src/levels/level_objects/markers/visual_reference.gd" id="1_bl6xw"]
+[ext_resource type="Script" uid="uid://c6pb3b3tiabd2" path="res://src/levels/level_objects/markers/spawn_point.gd" id="1_jymt0"]
+[ext_resource type="Texture2D" uid="uid://du2wkqe8xo4lf" path="res://assets/art/editor/spawn-marker.png" id="2_jymt0"]
+
+[node name="SpawnPoint" type="Marker2D" unique_id=1768425400]
+script = ExtResource("1_jymt0")
+
+[node name="VisualReference" type="Node2D" parent="." unique_id=1487710257]
+script = ExtResource("1_bl6xw")
+
+[node name="Sprite2D" type="Sprite2D" parent="VisualReference" unique_id=1459982753]
+texture = ExtResource("2_jymt0")

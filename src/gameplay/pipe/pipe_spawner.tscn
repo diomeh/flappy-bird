@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cj7p6edgsrk3t"]
+
+[ext_resource type="Script" uid="uid://brhtw2i04lr4l" path="res://src/gameplay/pipe/pipe_spawner.gd" id="1_ok2mo"]
+
+[node name="PipeSpawner" type="Node" unique_id=1807292935]
+script = ExtResource("1_ok2mo")
+
+[node name="Timer" type="Timer" parent="." unique_id=1908026227]
+unique_name_in_owner = true
